@@ -19,57 +19,53 @@ include('connection.php');
 $flight=$_POST['viewflighttype'];
 if($flight == 'Arrivals') {
 echo "
-	<p style="font-family:'Lato'; font-size:30px;">Today's Arrivals</p> 
-	<p style="font-family:'Lato'; font-size:15px;"></p>
+	<p style=\"font-family:'Lato'; font-size:30px;\">Today's Arrivals</p> 
+	<p style=\"font-family:'Lato'; font-size:15px;\"></p>
 	<tr>
 	<th>Flight No</th>
-	<th>Date</th>
 	<th>Gate Number</th>
 	<th>Departure Time</th>
 	<th>Arrival Time</th>
 	<th>Departure Airport</th>
 	<th>Baggage Carousel</th>
 </tr>";
-$query = "SELECT FlightNo,GateNumber,DepartureTime,ArrivalTime,DepartureAirportCode,BaggageCarousel FROM `Today's Arrivals`";
+$query = "SELECT * FROM TodaysArrivals";
 $result = mysql_query($query);
 while($flight = mysql_fetch_array($result)){
 		$no = $flight['FlightNo'];
 		$gate = $flight['GateNumber'];
 		echo '<tr>';
-		echo '<td>' . $no . '</td>';
-		echo '<td>' . $flight['Date'] . '</td>';
-		echo '<td>' . $gate . '</td>';
-		echo '<td>' . $flight['DepartureTime'] . '</td>';
-		echo '<td>' . $flight['ArrivalTime'] . '</td>';
-		echo '<td>' . $flight['DepartureAirportCode'] . '</td>';
-		echo '<td>' . $flight['BaggageCarousel'] . '</td>';
+		echo '<td style="text-align:center">' . $no . '</td>';
+		echo '<td style="text-align:center">' . $gate . '</td>';
+		echo '<td style="text-align:center">' . $flight['DepartureTime'] . '</td>';
+		echo '<td style="text-align:center">' . $flight['ArrivalTime'] . '</td>';
+		echo '<td style="text-align:center">' . $flight['DepartureAirportCode'] . '</td>';
+		echo '<td style="text-align:center">' . $flight['BaggageCarousel'] . '</td>';
 		echo '</tr>';
 	}
 }
 else {
 echo "
-	<p style="font-family:'Lato'; font-size:30px;">Today's Departures</p> 
-	<p style="font-family:'Lato'; font-size:15px;"></p>
+	<p style=\"font-family:'Lato'; font-size:30px;\">Today's Departures</p> 
+	<p style=\"font-family:'Lato'; font-size:15px;\"></p>
 	<tr>
 	<th>Flight No</th>
-	<th>Date</th>
 	<th>Gate Number</th>
 	<th>Departure Time</th>
 	<th>Arrival Time</th>
 	<th>Destination Airport</th>
 </tr>";
-$query = "SELECT FlightNo,GateNumber,DepartureTime,ArrivalTime,ArrivalAirportCode FROM `Today's Departures`";
+$query = "SELECT * FROM `TodaysDepartures`";
 $result = mysql_query($query);
 while($flight = mysql_fetch_array($result)){
 		$no = $flight['FlightNo'];
 		$gate = $flight['GateNumber'];
 		echo '<tr>';
-		echo '<td>' . $no . '</td>';
-		echo '<td>' . $flight['Date'] . '</td>';
-		echo '<td>' . $gate . '</td>';
-		echo '<td>' . $flight['DepartureTime'] . '</td>';
-		echo '<td>' . $flight['ArrivalTime'] . '</td>';
-		echo '<td>' . $flight['ArrivalAirportCode'] . '</td>';
+		echo '<td style="text-align:center">' . $no . '</td>';
+		echo '<td style="text-align:center">' . $gate . '</td>';
+		echo '<td style="text-align:center">' . $flight['DepartureTime'] . '</td>';
+		echo '<td style="text-align:center">' . $flight['ArrivalTime'] . '</td>';
+		echo '<td style="text-align:center">' . $flight['ArrivalAirportCode'] . '</td>';
 		echo '</tr>';
 	}
 }
@@ -97,19 +93,3 @@ while($flight = mysql_fetch_array($result)){
 </div>
 </body>
 
-	
-	
-</div>
-</div>
-</td>
-<td>
-<img src="http://www.thefineyounggentleman.com/wp-content/uploads/2012/10/Airplane.jpg" style="padding:0px 0px 0px 30px; width:700px; vertical-align:text-top;">
-</td>
-</tr>
-</table>
-<br>
-<br>
-<div style="text-align:center; color:black">
-<a href="admin.php" style="color:Black;">Admin Login</a>
-</div>
-</body>

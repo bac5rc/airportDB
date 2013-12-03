@@ -25,8 +25,8 @@
 <div style="text-align:right;">
 <form action="todaysflights.php" method="POST"/>
 <select name="viewflighttype" style="width:110px; height:40px;">
-<option value="Arriving">Arrivals</option>
-<option value="Departing">Departures</option>
+<option value="Arrivals">Arrivals</option>
+<option value="Departures">Departures</option>
 </select>
 <INPUT TYPE="SUBMIT" Value="View" style="width:100px; height:40px;"/>
 </form></div>
