@@ -25,6 +25,7 @@ echo
 <br>
 <br>
 <div  style="text-align:center">
+<p style="font-family:\'Lato\'; font-size:30px;">Admin Login</p>
 <form action="" method="post">
 	Username:<input type="text" name="username" value="" /><br />
 	Password:<input type="password" name="password" value="" /><br />

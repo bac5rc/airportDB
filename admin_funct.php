@@ -22,17 +22,32 @@ for ($x=0; $x < count($buttons); $x++){
 
 echo 
 
-'<h1>WELCOME</h1>
+'<head>
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lato">
+  </head>
+<body style="padding:30px; font-family:\'Lato\'">  
+<h1 style="text-align:center; font-family:\'Lato\'; font-size:48px;">CHARLOTTESVILLE<br>CITY AIRPORT</h1>
+<br>
+<br>
+<div  style="text-align:center">
+<p style="font-family:\'Lato\'; font-size:30px;">Welcome</p>
 <form action="" method="post">
-	<input type="submit" name="Display" value="Display" />
+	<input type="submit" name="Display" value="Display" style="width:70px; height:40px;"/>
 </form>
 
 <form action="" method="post">
-	<input type="submit" name="Update" value="Update" />
+	<input type="submit" name="Update" value="Update" style="width:70px; height:40px;"/>
 </form>
 
 <form action="" method="post">
-	<input type="submit" name="Logout" value="Logout"/>
-</form>'
+	<input type="submit" name="Logout" value="Logout" style="width:70px; height:40px;"/>
+</form>
+</div>
+</body>'
+
+
+
+
+
 
 ?>

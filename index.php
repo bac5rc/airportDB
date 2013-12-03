@@ -13,7 +13,7 @@
 <p style="font-family:'Lato'; font-size:30px;">Ready to book a flight?</p> 
 <p style="font-family:'Lato'; font-size:15px;">We can provide all your traveling needs from right here in Charlottesville. Click the button below to get started!</p>
 <div style="text-align:right;">
-<form action="passenger.php" method="post">
+<form action="login.php" method="post">
 	<input type="submit" name="Passenger" value="Go!" style="width:100px; height:40px;" />
 </form>
 </div>
