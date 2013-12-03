@@ -16,11 +16,16 @@ include 'connection.php';
 session_start();
 //$fname = $GLOBALS['PassFirstName'];
 $tid=$_SESSION['travelerid'];
-$query="SELECT FirstName FROM Passenger WHERE TravelerID = '$tid'";
+$query="SELECT FlightNo,GateNumber,Terminal FROM Flying NATURAL JOIN Flight NATURAL JOIN Gate WHERE TravelerID = '$tid'";
 $result = mysql_query($query);
 $result = mysql_fetch_array($result);
-$fname=$result['FirstName'];
+$flightno = $result['FlightNo'];
+$terminal = $result['Terminal'];
+$fname=$_SESSION['travelerfirstname'];
 echo "<p style=\"font-family:'Lato'; font-size:30px;\">What would you like to view, ".$fname."?</p>"; 
+if (strlen($result['FlightNo'] > 0)) {
+echo "<p style=\"font-family:'Lato'; font-size:15px;\">Your flight (Flight No. ".$result['FlightNo'].") is at gate ".$result['GateNumber']." in terminal ".$result['Terminal'].".";
+}
 // "<p>".$fname."</p>";
 ?>
 <p style="font-family:'Lato'; font-size:15px;"></p>

@@ -1,18 +1,24 @@
 <?php
 
-$buttons=array('Display', 'Update','Logout');
+$buttons=array('Display', 'Update', 'Export', 'Logout');
 
 for ($x=0; $x < count($buttons); $x++){
 	if (isset($_POST[$buttons[$x]])){
 		if($buttons[$x]== 'Logout'){
 			header("Location: admin.php");
 		}
+		
+		elseif($buttons[$x]== 'Export'){
+			header("Location: export_table.php");
+		}
+		
 		elseif($buttons[$x]== 'Update'){
 			header("Location: update_table.php");
 		}
 		elseif($buttons[$x]== 'Display'){
 			header("Location: display_table.php");
 		}
+		
 		else{
 			
 		}
@@ -40,8 +46,14 @@ echo
 </form>
 
 <form action="" method="post">
+	<input type="submit" name="Export" value="Export" style="width:70px; height:40px;"/>
+</form>
+
+<form action="" method="post">
 	<input type="submit" name="Logout" value="Logout" style="width:70px; height:40px;"/>
 </form>
+
+
 </div>
 </body>'
 

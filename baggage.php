@@ -16,9 +16,10 @@
 
 <?php
 	include 'connection.php';
-	$email = isset($_POST['iE']) ? $_POST['iE'] : '';
-$query = sprintf("SELECT BaggageID, BaggageStatus, FlightNo FROM Baggage NATURAL JOIN Passenger WHERE Email = '%s'", mysql_real_escape_string($email));
-	$result = mysql_query($query) or die(mysql_error());
+	session_start();
+	$tid=$_SESSION['travelerid'];
+	$query="SELECT BaggageID, BaggageStatus, FlightNo FROM Baggage NATURAL JOIN Passenger WHERE TravelerID = '$tid'";
+	$result = mysql_query($query);
 	
 	while($baggage = mysql_fetch_array($result)){
 		$baggageID = $baggage['BaggageID'];

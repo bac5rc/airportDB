@@ -1,107 +1,118 @@
-<table>
-
 <?php
-session_start();
-include('connection.php');
-if (!isset($_POST['name'])) {
-$name=$_SESSION['currenttablename'];
-}
-else {
-$name=$_POST['name'];
-$_SESSION['currenttablename']=$name;
-}
-$query = 'SELECT * FROM '.$name;
-$result = mysql_query($query);
-$getData = False;
+	session_start();
+	include('connection.php');
+	if (!isset($_POST['name'])) {
+		$name=$_SESSION['currenttablename'];
+	}
+	else {
+		$name=$_POST['name'];
+		$_SESSION['currenttablename']=$name;
+	}
 
-if (isset($_POST['row'])){
-	if($_POST['row'] < 1){
-		echo '<br>Invalid row number; please try again';
+	if(!isset($_SESSION['getData'])){
+		$_SESSION['getData']=False;
 	}
-	else{
-		$getData = True;
-	}
+	$query = 'SELECT * FROM '.$name;
+	$result = mysql_query($query);
+	$line='';
+
+	if (isset($_POST['row'])){
+		if($_POST['row'] < 1){
+			echo '<br>Invalid row number; please try again</br>';
+		}
+		else{
+			$_SESSION['getData']= True;
+			for($x=1; $x<=$_POST['row']; $x++){
+				$line = mysql_fetch_array($result);
+			}
 	
-}
-
-echo '	<h>Enter row number to update (1 = row 1)</h>
-	<form action="" method="post"><br>
-	RowNumber:<input type="number" name="row"/><br />
-	<input type="submit" value="Get Record"/>
-	</form>
-	<br></br>	
-	';
-
-
-
-if($name == 'Admin') {
-echo '<form action="" method="post">
-	Username:<br><output type="text" name="uname" /><br />
-	First Name:<br><output type="text" name="fname" /><br />
-	Last Name:<br><output type="text" name="lname" /><br />	
-	Password:<br><output type="text" name="pword" /><br />
-</form>';
-
-
-
-while($name = mysql_fetch_array($result)){
-		echo '<tr>';
-		echo '<td>' . $name['Username'] . '</td>';
-		echo '<td>' . $name['FirstName'] . '</td>';
-		echo '<td>' . $name['LastName'] . '</td>';
-		echo '<td>' . $name['Password'] . '</td>';
-		echo '</tr>';
+		}
+	
 	}
-}
 
-elseif($name == 'Airline') {
-echo "<tr>
-	<th>Airline Designator</th>
-	<th>Airline Name</th>
-	<th>Airline Code</th>
-	<th>Terminal</th>
-</tr>";
-while($name = mysql_fetch_array($result)){
-		echo '<tr>';
-		echo '<td>' . $name['AirlineDesignator'] . '</td>';
-		echo '<td>' . $name['AirlineName'] . '</td>';
-		echo '<td>' . $name['AirlineCode'] . '</td>';
-		echo '<td>' . $name['Terminal'] . '</td>';
-		echo '</tr>';
+	echo '	<h>Enter row number to update (1 = row 1)</h>
+		<form action="" method="post"><br>
+		RowNumber:<input type="number" name="row"/><br />
+		<input type="submit" value="Get Record"/>
+		</form>
+		<br></br>	
+		';
+	
+	if($_SESSION['getData'] == True){
+	
+	if($name == 'Admin') {
+		if (isset($_POST['uname']) && isset($_POST['fname']) && isset($_POST['lname']) && isset($_POST['pword'])){
+			$username=$_POST['uname'];
+			$firstname=$_POST['fname'];
+			$lastname=$_POST['lname'];
+			$password=$_POST['pword'];
+			mysql_query("UPDATE '$name' SET Username='$username', FirstName='$firstname', LastName='$lastname', Password='$password'");
+			echo '<p>Updated Database<p>';
+			
+		}		
+		else{
+			$usernamee=$line['Username'];
+			$firstnamee=$line['FirstName'];
+			$lastnamee=$line['LastName'];
+			$passworde=$line['Password'];
+			echo '<form action="" method="post">
+			Username:<br><input type="text" name="uname" value="'.$usernamee.'" /><br />
+			First Name:<br><input type="text" name="fname" value="'.$firstnamee.'" /><br />
+			Last Name:<br><input type="text" name="lname" value="'.$lastnamee.'" /><br />	
+			Password:<br><input type="text" name="pword" value="'.$passworde.'" /><br />
+			<input type="submit" value="Update"/>
+			</form>';
+		}
 	}
-}
 
-elseif($name == 'Airplane') {
-echo "<tr>
-	<th>Airplane ID</th>
-	<th>Airline Designator</th>
-	<th>Manufacturer</th>
-	<th>Year Issued</th>
-</tr>";
-while($name = mysql_fetch_array($result)){
-		echo '<tr>';
-		echo '<td>' . $name['AirplaneID'] . '</td>';
-		echo '<td>' . $name['AirlineDesignator'] . '</td>';
-		echo '<td>' . $name['Manufacturer'] . '</td>';
-		echo '<td>' . $name['YearIssued'] . '</td>';
-		echo '</tr>';
-	}
-}
+	elseif($name == 'Airline') {
+		echo "<tr>
+		<th>Airline Designator</th>
+		<th>Airline Name</th>
+		<th>Airline Code</th>
+		<th>Terminal</th>
+		</tr>";
+		while($name = mysql_fetch_array($result)){
+			echo '<tr>';
+			echo '<td>' . $name['AirlineDesignator'] . '</td>';
+			echo '<td>' . $name['AirlineName'] . '</td>';
+			echo '<td>' . $name['AirlineCode'] . '</td>';
+			echo '<td>' . $name['Terminal'] . '</td>';
+			echo '</tr>';
+			}
+		}
 
-elseif($name == 'ArrivingFlight') {
-echo "<tr>
-	<th>Flight Number</th>
-	<th>Departure Airport Code</th>
-	<th>Baggage Carousel</th>
-</tr>";
-while($name = mysql_fetch_array($result)){
-		echo '<tr>';
-		echo '<td>' . $name['FlightNo'] . '</td>';
-		echo '<td>' . $name['DepartureAirportCode'] . '</td>';
-		echo '<td>' . $name['BaggageCarousel'] . '</td>';
-		echo '</tr>';
+	elseif($name == 'Airplane') {
+		echo "<tr>
+		<th>Airplane ID</th>
+		<th>Airline Designator</th>
+		<th>Manufacturer</th>
+		<th>Year Issued</th>
+		</tr>";
+		while($name = mysql_fetch_array($result)){
+			echo '<tr>';
+			echo '<td>' . $name['AirplaneID'] . '</td>';
+			echo '<td>' . $name['AirlineDesignator'] . '</td>';
+			echo '<td>' . $name['Manufacturer'] . '</td>';
+			echo '<td>' . $name['YearIssued'] . '</td>';
+			echo '</tr>';
+		}
 	}
-}
+
+	elseif($name == 'ArrivingFlight') {
+		echo "<tr>
+		<th>Flight Number</th>
+		<th>Departure Airport Code</th>
+		<th>Baggage Carousel</th>
+		</tr>";
+		while($name = mysql_fetch_array($result)){
+			echo '<tr>';
+			echo '<td>' . $name['FlightNo'] . '</td>';
+			echo '<td>' . $name['DepartureAirportCode'] . '</td>';
+			echo '<td>' . $name['BaggageCarousel'] . '</td>';
+			echo '</tr>';
+			}
+		}
 
 elseif($name == 'Baggage') {
 echo "<tr>
@@ -258,8 +269,8 @@ else {
 
 }
 
+}
+
 	
 ?>
-</table>
-
 <input type="submit" value="Back" onclick="location.href='update_table.php';"/>
