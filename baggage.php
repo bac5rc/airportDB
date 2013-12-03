@@ -21,6 +21,14 @@
 	$query="SELECT BaggageID, BaggageStatus, FlightNo FROM Baggage NATURAL JOIN Passenger WHERE TravelerID = '$tid'";
 	$result = mysql_query($query);
 	
+	echo "
+	<table>
+	<tr>
+	<th>BaggageID</th>
+	<th>BaggageStatus</th>
+	<th>FlightNo</th>
+	</tr>";
+	
 	while($baggage = mysql_fetch_array($result)){
 		$baggageID = $baggage['BaggageID'];
 		$baggageStatus = $baggage['BaggageStatus'];
@@ -33,6 +41,7 @@
 	}
 		
 ?>
+</table>
 
 	
 <!--<form action="bagFind.php" method="POST"/>
